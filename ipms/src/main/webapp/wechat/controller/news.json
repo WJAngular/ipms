@@ -1,0 +1,18 @@
+[
+	{
+		"href":"#",
+		"img":"img/sucai3.jpg",
+		"title":"刷新新增的新闻1111",
+		"description":"test11111111111111111111111",
+		"date":"2015-11-26",
+		"newstype":"党建新闻"
+	},
+	{
+		"href":"#",
+		"img":"img/sucai2.jpg",
+		"title":"刷新新增的新闻222",
+		"description":"test2222222222222222222222",
+		"date":"2015-11-27",
+		"newstype":"其他新闻"
+	}
+]

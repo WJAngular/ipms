@@ -1,0 +1,13 @@
+html, body {
+  height: 100%;
+  margin: 0; }
+
+body {
+  font-family: '\5FAE\8F6F\96C5\9ED1',Arial,Verdana,sans-serif;
+  background: #f1f1f1; }
+
+.logo {
+  width: 600px;
+  height: 280px;
+  background: url(../img/logo.png) no-repeat;
+  background-size: 100%; }

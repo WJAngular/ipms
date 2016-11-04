@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" class="uk-height-1-1" ng-app="pichose">
+<head>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta charset="UTF-8">
+	<title>党建后台管理系统</title>
+	<link rel="stylesheet" href="../uikit/css/uikit.almost-flat.min.css">
+	<script src="../../js/jquery-2.1.4.min.js"></script>
+	<style>
+		body,h3{ font-family: "微软雅黑"}
+		.uk-thumbnail{
+			 width:120px;
+			 height:80px;
+		}
+		.active{
+			border: 1px solid lightcoral;
+		}
+	</style>
+</head>
+<body>
+	<div class="uk-panel uk-panel-box uk-panel-header" ng-controller="picRadio">
+		<h3 class="uk-panel-title">从图片库选择</h3>
+		<ul class="uk-thumbnav uk-grid-width-1-4 uk-text-center">
+			<li ng-repeat="thumb in thumbs">
+				<img class="uk-thumbnail" ng-src="{{ thumb.url }}" ng-click="thumbCheck($event)">
+			</li>
+		</ul>
+		<ul class="uk-pagination uk-pagination-left">
+			<li class="uk-pagination-previous"><a ng-click="prePage()">上一页</a></li>
+			<li class="uk-pagination-next"><a ng-click="nextPage()">下一页</a></li>
+		</ul>
+		<hr>
+		<span class="uk-text-muted">上传图片</span> <input type="file" id="upload"/>
+	</div>
+	<div class="uk-margin-top uk-text-right">
+		<button class="uk-button uk-button-success" type="button" id="choseAlbum">确定</button>
+		<button class="uk-button uk-modal-close" id="cancelAlbum">取消</button>
+	</div>
+</body>
+<script src="../../js/angular.min.js"></script>
+<script src="../uikit/js/uikit.min.js"></script>
+<script src="../uikit/js/components/upload.min.js"></script>
+<script src="./controller_thumb.js"></script>
+<script src="./internal.js"></script>
+<script>
+	$(function(){
+		/**
+		 * 图片上传模块
+		 */
+		var settings = {
+            action: 'abc.php', 					// 上传路径 url
+			param:'',							// 传递查询名称
+			params:'',							// 额外的请求参数
+            allow : '*.(jpg|jpeg|gif|png)' ,	// 允许上传的类型
+			type:'json'
+		};
+		
+		UIkit.uploadSelect($("#upload"), settings);		// 上传调用
+			
+		/**
+		 * 确定 & 取消按钮
+		 * */
+		var $sub=$('#choseAlbum');
+		var $cancel=$('#cancelAlbum');
+		
+		$sub.on('click', function(event) {
+			var $thumLi=$('.active');
+ 			var $s=editor.getContent();
+			var $src=$thumLi.attr('src');
+			editor.setContent($s+"<img width='50%'  height='50%' alt='图片素材' style='margin:0 auto' src=\'"+$src+"\'/>");
+			dialog.close();
+		});
+		
+		$cancel.on('click', function(event) {
+			dialog.close();
+		});
+	})
+</script>
+</html>

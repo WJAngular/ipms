@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+	<bean id="dictionaryDao" class="com.mtd.dao.impl.DictionaryDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="usersDao" class="com.mtd.dao.impl.UsersDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userService" class="com.mtd.service.impl.UserServiceImpl">
+		<property name="usersDao" ref="usersDao"></property>
+	</bean>
+
+
+	<bean id="permissionDao" class="com.mtd.dao.impl.PermissionDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="permissionService" class="com.mtd.service.impl.PermissionServiceImpl">
+		<property name="permissionDao" ref="permissionDao"></property>
+	</bean>
+
+	<bean id="roleDao" class="com.mtd.dao.impl.RoleDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="roleService" class="com.mtd.service.impl.RoleServiceImpl">
+		<property name="roleDao" ref="roleDao"></property>
+	</bean>
+
+	<bean id="rolePermissionDao" class="com.mtd.dao.impl.RolePermissionDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="rolePermissionService" class="com.mtd.service.impl.RolePermissionServiceImpl">
+		<property name="rolePermissionDao" ref="rolePermissionDao"></property>
+	</bean>
+
+	<bean id="userRoleDao" class="com.mtd.dao.impl.UserRoleDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userRoleService" class="com.mtd.service.impl.UserRoleServiceImpl">
+		<property name="userRoleDao" ref="userRoleDao"></property>
+	</bean>
+
+	<!-- -->
+	<bean id="menu" class="com.mtd.dao.impl.WechatMenuDaoImpl" parent="usersDao" />
+	<bean id="media" class="com.mtd.dao.impl.WechatMediaDaoImpl" />
+	<bean id="wechatService" class="com.mtd.service.impl.WeChatServiceImpl">
+		<property name="menu" ref="menu"></property>
+		<property name="media" ref="media"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="actiDao" ref="actiDao"></property>
+	</bean>
+
+
+	<bean id="jsService" class="com.mtd.service.impl.WeChatJSServiceImpl"></bean>
+
+	<bean id="exceptionResolver" class="com.mtd.common.ExceptionHandler" />
+
+	<bean id="cmsLikeDao" class="com.mtd.dao.impl.CmsLikeDaoImpl"
+		parent="usersDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="cmsLikeService" class="com.mtd.service.impl.CmsLikeServiceImpl">
+		<property name="like" ref="cmsLikeDao"></property>
+	</bean>
+
+	<bean id="signDao" class="com.mtd.dao.impl.WechatSignUpDaoImpl"
+		parent="usersDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="signService" class="com.mtd.service.impl.WeChatSignUpServiceImpl">
+		<property name="sign" ref="signDao"></property>
+	</bean>
+	<bean id="actiDao" class="com.mtd.dao.impl.WechatActiUserDaoImpl" parent="usersDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>
